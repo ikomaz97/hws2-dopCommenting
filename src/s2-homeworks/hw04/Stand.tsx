@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import s from './Stand.module.css';
 import SuperInputText from './common/c1-SuperInputText/SuperInputText';
 import SuperCheckbox from './common/c3-SuperCheckbox/SuperCheckbox';
@@ -7,10 +7,10 @@ import SuperButton from './common/c2-SuperButton/SuperButton';
 const Stand = () => {
     const [stateForAllInputs, setStateForAllInputs] = useState('');
     const [error, setError] = useState('');
-
     const [stateForAllCheckboxes, setStateForAllCheckboxes] = useState(false);
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+        // Используйте e.target.value, чтобы получить значение из события ChangeEvent
         setStateForAllInputs(e.target.value);
     };
 
@@ -33,7 +33,7 @@ const Stand = () => {
                 {/* Text input compatible with old code */}
                 <div>
                     <SuperInputText
-                        id={'hw4-super-input-like-old'}
+                        id="hw4-super-input-like-old"
                         value={stateForAllInputs}
                         onChange={handleInputChange}
                     />
@@ -41,9 +41,9 @@ const Stand = () => {
                 {/* Text input with error handling */}
                 <div>
                     <SuperInputText
-                        id={'hw4-super-input-with-error'}
+                        id="hw4-super-input-with-error"
                         value={stateForAllInputs}
-                        onChangeText={handleInputChange}
+                        onChangeText={setStateForAllInputs} // Обновление с помощью onChangeText
                         error={error}
                         onEnter={handleInputWithEnter}
                     />
@@ -53,23 +53,23 @@ const Stand = () => {
             <div className={s.buttons}>
                 {/* Default button */}
                 <div>
-                    <SuperButton id={'hw4-super-button-default'}>default</SuperButton>
+                    <SuperButton id="hw4-super-button-default">default</SuperButton>
                 </div>
                 {/* Red button */}
                 <div>
-                    <SuperButton id={'hw4-super-button-red'} xType="red">
+                    <SuperButton id="hw4-super-button-red" xType="red">
                         red
                     </SuperButton>
                 </div>
                 {/* Disabled red button */}
                 <div>
-                    <SuperButton id={'hw4-super-button-disabled'} xType="red" disabled>
+                    <SuperButton id="hw4-super-button-disabled" xType="red" disabled>
                         disabled
                     </SuperButton>
                 </div>
                 {/* Secondary button */}
                 <div>
-                    <SuperButton id={'hw4-super-button-secondary'} xType="secondary">
+                    <SuperButton id="hw4-super-button-secondary" xType="secondary">
                         secondary
                     </SuperButton>
                 </div>
@@ -79,7 +79,7 @@ const Stand = () => {
                 {/* Checkbox with text */}
                 <div>
                     <SuperCheckbox
-                        id={'hw4-super-checkbox-like-old'}
+                        id="hw4-super-checkbox-with-text"
                         checked={stateForAllCheckboxes}
                         onChangeChecked={handleCheckboxChange}
                     >
@@ -89,7 +89,7 @@ const Stand = () => {
                 {/* Checkbox compatible with old code */}
                 <div>
                     <SuperCheckbox
-                        id={'hw4-super-checkbox-like-old'}
+                        id="hw4-super-checkbox-like-old"
                         checked={stateForAllCheckboxes}
                         onChange={(e) => handleCheckboxChange(e.currentTarget.checked)}
                     />
