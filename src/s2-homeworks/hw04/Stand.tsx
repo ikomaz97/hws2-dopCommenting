@@ -1,102 +1,101 @@
-import React, { useState, ChangeEvent } from 'react';
-import s from './Stand.module.css';
-import SuperInputText from './common/c1-SuperInputText/SuperInputText';
-import SuperCheckbox from './common/c3-SuperCheckbox/SuperCheckbox';
-import SuperButton from './common/c2-SuperButton/SuperButton';
+import React, { useState } from 'react'
+import s from './Stand.module.css'
+import SuperInputText from './common/c1-SuperInputText/SuperInputText'
+import SuperCheckbox from './common/c3-SuperCheckbox/SuperCheckbox'
+import SuperButton from './common/c2-SuperButton/SuperButton'
 
 const Stand = () => {
-    const [stateForAllInputs, setStateForAllInputs] = useState('');
-    const [error, setError] = useState('');
-    const [stateForAllCheckboxes, setStateForAllCheckboxes] = useState(false);
+    const [stateForAllInputs, setValue] = useState<string>('')
+    const [error, setError] = useState<string>('')
 
-    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-        // Используйте e.target.value, чтобы получить значение из события ChangeEvent
-        setStateForAllInputs(e.target.value);
-    };
-
-    const handleInputWithEnter = () => {
-        if (stateForAllInputs.trim() === '') {
-            setError('Error');
-        } else {
-            setError('');
-            setStateForAllInputs('');
-        }
-    };
-
-    const handleCheckboxChange = (checked: boolean) => {
-        setStateForAllCheckboxes(checked);
-    };
+    const [stateForAllCheckboxes, setChecked] = useState<boolean>(false)
 
     return (
-        <div id="hw4-stand" className={s.stand}>
+        <div id={'hw4-stand'} className={s.stand}>
             <div className={s.inputs}>
-                {/* Text input compatible with old code */}
+                {/*совместим со старым кодом:*/}
                 <div>
                     <SuperInputText
-                        id="hw4-super-input-like-old"
+                        id={'hw4-super-input-like-old'}
                         value={stateForAllInputs}
-                        onChange={handleInputChange}
+                        onChange={(e) => setValue(e.currentTarget.value)}
                     />
                 </div>
-                {/* Text input with error handling */}
+                {/*инпут с ошибкой:*/}
                 <div>
                     <SuperInputText
-                        id="hw4-super-input-with-error"
+                        id={'hw4-super-input-with-error'}
                         value={stateForAllInputs}
-                        onChangeText={setStateForAllInputs} // Обновление с помощью onChangeText
+                        onChangeText={setValue}
                         error={error}
-                        onEnter={handleInputWithEnter}
+                        onEnter={() => {
+                            setError(
+                                stateForAllInputs.trim()
+                                    ? ''
+                                    : 'Error'
+                            )
+                            setValue('')
+                        }}
                     />
                 </div>
             </div>
 
             <div className={s.buttons}>
-                {/* Default button */}
+                {/*обычная кнопка:*/}
                 <div>
-                    <SuperButton id="hw4-super-button-default">default</SuperButton>
+                    <SuperButton id={'hw4-super-button-default'}>
+                        default
+                    </SuperButton>
                 </div>
-                {/* Red button */}
+                {/*красная кнопка:*/}
                 <div>
-                    <SuperButton id="hw4-super-button-red" xType="red">
+                    <SuperButton id={'hw4-super-button-red'} xType={'red'}>
                         red
                     </SuperButton>
                 </div>
-                {/* Disabled red button */}
+                {/*задизэйбленная кнопка:*/}
                 <div>
-                    <SuperButton id="hw4-super-button-disabled" xType="red" disabled>
+                    <SuperButton
+                        id={'hw4-super-button-disabled'}
+                        xType={'red'}
+                        disabled
+                    >
                         disabled
                     </SuperButton>
                 </div>
-                {/* Secondary button */}
+                {/*задизэйбленная кнопка:*/}
                 <div>
-                    <SuperButton id="hw4-super-button-secondary" xType="secondary">
+                    <SuperButton
+                        id={'hw4-super-button-secondary'}
+                        xType={'secondary'}
+                    >
                         secondary
                     </SuperButton>
                 </div>
             </div>
 
             <div className={s.checkboxes}>
-                {/* Checkbox with text */}
+                {/*чекбокс с текстом:*/}
                 <div>
                     <SuperCheckbox
-                        id="hw4-super-checkbox-with-text"
+                        id={'hw4-super-checkbox-with-text'}
                         checked={stateForAllCheckboxes}
-                        onChangeChecked={handleCheckboxChange}
+                        onChangeChecked={setChecked}
                     >
                         some text
                     </SuperCheckbox>
                 </div>
-                {/* Checkbox compatible with old code */}
+                {/*совместим со старым кодом:*/}
                 <div>
                     <SuperCheckbox
-                        id="hw4-super-checkbox-like-old"
+                        id={'hw4-super-checkbox-like-old'}
                         checked={stateForAllCheckboxes}
-                        onChange={(e) => handleCheckboxChange(e.currentTarget.checked)}
+                        onChange={(e) => setChecked(e.currentTarget.checked)}
                     />
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default Stand;
+export default Stand
