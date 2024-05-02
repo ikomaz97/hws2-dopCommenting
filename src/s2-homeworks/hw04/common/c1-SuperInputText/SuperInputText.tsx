@@ -1,46 +1,39 @@
-import React, { ChangeEvent, KeyboardEvent } from 'react';
+import React, { ChangeEvent } from 'react';
 import s from './SuperInputText.module.css';
 
-type SuperInputTextProps = {
-    value: string;
-    onChange: (value: string) => void;
-    onChangeText?: (value: string) => void;
-    onEnter?: () => void;
-    error?: React.ReactNode;
-    spanClassName?: string;
-    className?: string;
+type SuperInputTextPropsType = {
     id?: string;
-    // Другие пропсы для <input>, такие как placeholder, disabled и т.д.
-    // Для примера оставим только некоторые из них
-    placeholder?: string;
-    disabled?: boolean;
-};
+    value: string;
+    onChangeText: (value: string) => void; // Используем onChangeText
+    onEnter?: () => void;
+    error?: string; // Исправляем тип ошибки на string
+    spanClassName?: string;
+}
 
-const SuperInputText: React.FC<SuperInputTextProps> = ({
-                                                           value,
-                                                           onChange,
-                                                           onChangeText,
-                                                           onEnter,
-                                                           error,
-                                                           spanClassName,
-                                                           className,
-                                                           id,
-                                                           placeholder,
-                                                           disabled,
-                                                       }) => {
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        onChange(e.currentTarget.value);
-        onChangeText?.(e.currentTarget.value);
+const SuperInputText: React.FC<SuperInputTextPropsType> = ({
+                                                               id,
+                                                               value,
+                                                               onChange,
+                                                               onEnter,
+                                                               error,
+                                                               spanClassName,
+                                                               ...restProps
+                                                           }) => {
+    const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
+        const { value } = e.target;
+        if (onChange) {
+            onChange(value);
+        }
     };
 
-    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+    const onKeyPressCallback = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && onEnter) {
             onEnter();
         }
     };
 
     const finalSpanClassName = s.error + (spanClassName ? ` ${spanClassName}` : '');
-    const finalInputClassName = s.input + (error ? ` ${s.errorInput}` : '') + (className ? ` ${className}` : '');
+    const finalInputClassName = error ? `${s.input} ${s.errorInput}` : s.input;
 
     return (
         <div className={s.inputWrapper}>
@@ -48,11 +41,10 @@ const SuperInputText: React.FC<SuperInputTextProps> = ({
                 id={id}
                 type="text"
                 value={value}
-                onChange={onChangeHandler}
-                onKeyPress={onKeyPressHandler}
-                placeholder={placeholder}
-                disabled={disabled}
+                onChange={onChangeCallback}
+                onKeyPress={onKeyPressCallback}
                 className={finalInputClassName}
+                {...restProps}
             />
             {error && (
                 <span id={id ? `${id}-span` : undefined} className={finalSpanClassName}>
