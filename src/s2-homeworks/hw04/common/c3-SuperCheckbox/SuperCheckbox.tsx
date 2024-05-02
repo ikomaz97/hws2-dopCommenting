@@ -1,63 +1,53 @@
-import React, {
-    ChangeEvent,
-    DetailedHTMLProps,
-    InputHTMLAttributes,
-} from 'react'
-import s from './SuperCheckbox.module.css'
+import React, { ChangeEvent, DetailedHTMLProps, InputHTMLAttributes } from 'react';
+import s from './SuperCheckbox.module.css';
 
-// тип пропсов обычного инпута
-type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement>
+// Тип пропсов обычного чекбокса
+type DefaultCheckboxPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
-type SuperCheckboxPropsType = Omit<DefaultInputPropsType, 'type'> & {
-    onChangeChecked?: (checked: boolean) => void
-    spanClassName?: string
-}
+type SuperCheckboxPropsType = Omit<DefaultCheckboxPropsType, 'type'> & {
+    onChangeChecked?: (checked: boolean) => void;
+    spanClassName?: string;
+};
 
-const SuperCheckbox: React.FC<SuperCheckboxPropsType> = (
-    {
-        onChange,
-        onChangeChecked,
-        className,
-        spanClassName,
-        children, // в эту переменную попадёт текст, типизировать не нужно так как он затипизирован в React.FC
-        id,
-
-        ...restProps // все остальные пропсы попадут в объект restProps
-    }
-) => {
+const SuperCheckbox: React.FC<SuperCheckboxPropsType> = ({
+                                                             onChange,
+                                                             onChangeChecked,
+                                                             className,
+                                                             spanClassName,
+                                                             children,
+                                                             id,
+                                                             ...restProps
+                                                         }) => {
     const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
-        // задачка на написание онченджа
-        // ЕСЛИ(onChangeChecked ВООБЩЕ СУЩЕСТВУЕТ){
-        //    ПЕРЕДАТЬ ЕМУ ИВЕНТ.ЧТО-ТО.ЧТО-ТО
-        //}
-        // ЕСЛИ(onChange ВООБЩЕ СУЩЕСТВУЕТ){
-        //    ПЕРЕДАТЬ ЕМУ ИВЕНТ
-        //}
-    }
+        // Проверяем наличие колбэка для изменения состояния чекбокса
+        if (onChangeChecked) {
+            onChangeChecked(e.currentTarget.checked); // Передаем значение checked
+        }
 
-    const finalInputClassName = s.checkbox
-        + (className ? ' ' + className : '')
+        // Передаем событие onChange, если он существует
+        if (onChange) {
+            onChange(e);
+        }
+    };
+
+    const finalInputClassName = `${s.checkbox} ${className || ''}`.trim();
 
     return (
         <label className={s.label}>
             <input
                 id={id}
-                type={'checkbox'}
+                type="checkbox"
                 onChange={onChangeCallback}
                 className={finalInputClassName}
-                {...restProps} // отдаём инпуту остальные пропсы если они есть (checked например там внутри)
+                {...restProps}
             />
             {children && (
-                <span
-                    id={id ? id + '-span' : undefined}
-                    className={s.spanClassName}
-                >
+                <span id={id ? id + '-span' : undefined} className={s.spanClassName}>
                     {children}
                 </span>
             )}
-        </label> // благодаря label нажатие на спан передастся в инпут
-    )
-}
+        </label>
+    );
+};
 
-export default SuperCheckbox
+export default SuperCheckbox;
