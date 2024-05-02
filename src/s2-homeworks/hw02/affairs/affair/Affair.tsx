@@ -3,14 +3,15 @@ import { AffairType } from '../../HW2'
 import s from './Affair.module.css'
 import s2 from '../Affairs.module.css'
 
-type AffairPropsType = {
+export type AffairPropsType = {
     // key не нужно типизировать
     affair: AffairType
-    deleteAffairCallback: any // need to fix any
+    deleteAffairCallback: (id: number)=> void // need to fix any
 }
 
 function Affair(props: AffairPropsType) {
     const deleteCallback = () => {
+        props.deleteAffairCallback(props.affair._id);
         // need to fix
         // пропс.функция(мне нужен _id)
         // давайте проследим боевой путь это функции, или как она будет всплывать:
@@ -30,22 +31,21 @@ function Affair(props: AffairPropsType) {
             id={'hw2-affair-' + props.affair._id}
             className={affairClass}
         >
-            <div id={'hw2-name-' + props.affair._id} className={nameClass}>
+            <div id={'hw2-name-' + props.affair._id} className={affairClass}>
                 {/*создаёт студент*/}
-                {/* ПРОПС.ВЫВОДИМ ИМЯ*/}
+                {props.affair.name}
                 {/**/}
             </div>
             <div id={'hw2-priority-' + props.affair._id} hidden>
-                {/*создаёт студент*/}
+                {props.affair.priority}
 
                 {/**/}
             </div>
 
             <button
-                id={'hw2-button-delete-' + props.affair._id}
+                id={`hw2-button-delete-${props.affair._id}`}
                 className={buttonClass}
-                // need to fix
-                //ОНКЛИК={ФУНКЦИЯ}
+                onClick={deleteCallback}
             >
                 {/*текст кнопки могут изменить студенты*/}
                 X

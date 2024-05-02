@@ -1,12 +1,23 @@
-.message {
 
+
+.message {
+    display: flex;
+    justify-content: flex-end;
 }
 
 .imageAndText {
 
+
+    justify-content: flex-end;
+
 }
 
 .imageAndText img {
+
+    width: 48px;
+    height: 48px;
+    left: 1162px;
+    top: 204px;
 
 }
 
@@ -19,6 +30,7 @@
 }
 
 .name {
+
 
 }
 
