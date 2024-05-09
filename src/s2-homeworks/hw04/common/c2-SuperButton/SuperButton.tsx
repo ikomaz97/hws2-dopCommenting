@@ -1,39 +1,30 @@
-import React, {ButtonHTMLAttributes, DetailedHTMLProps} from 'react'
-import s from './SuperButton.module.css'
+import React, { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
+import s from './SuperButton.module.css';
 
-// тип пропсов обычной кнопки, children в котором храниться название кнопки там уже описан
-type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>,
-    HTMLButtonElement>
+type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
 
 type SuperButtonPropsType = DefaultButtonPropsType & {
-    xType?: string
-}
+    xType?: 'КРАСНЫЙ' | 'secondary'; // Определяем тип xType как 'КРАСНЫЙ' или 'secondary'
+};
 
-const SuperButton: React.FC<SuperButtonPropsType> = (
-    {
-        xType,
-        className,
-        disabled,
-        ...restProps // все остальные пропсы попадут в объект restProps, там же будет children
-    }
-) => {
+const SuperButton: React.FC<SuperButtonPropsType> = ({
+                                                         xType,
+                                                         className,
+                                                         disabled,
+                                                         ...restProps
+                                                     }) => {
+    // Формируем строку классов finalClassName с использованием шаблонных строк
     const finalClassName = `${s.button} 
-        ${disabled ? s.disabled : ''} 
-        ${xType === 'red' ? s.red : ''}
-        ${xType === 'secondary' ? s.secondary : ''}
-        ${className ? ' ' + className : ''}`; // задачка на смешивание классов
-
-    //ИЛИ ЕСЛИ НЕ ПОНЯТНО С finalClassName  ТОЖЕ САМОЕ ПРИ ПОМОЩИ ШАБЛОННЫХ СТРОК:
-    // `${s.СТИЛЬ КНОПКИ}  ${xType==='КРАСНЫЙ' ? ДАВАЙ КРАСНЫЙ СТИЛЬ : xType === 'secondary' ? ДАВАЙ СЕКОНДАРИ СТИЛЬ: ДАВАЙ ПО ДЕФОЛТУ } ${disabled ? ДАВАЙ ДИЗАБЛЕТ СТИЛЬ :  ПУСТУЮ СТРОКУ} `
-    // ЭТУ АЛХИМИЯ БУДЕМ ПОДРОБНО РАЗБИРАТЬ НА ДОПАХ
+        ${xType === 'КРАСНЫЙ' ? s.red : xType === 'secondary' ? s.secondary : ''} 
+        ${disabled ? s.disabled : ''}`.trim(); // Удаляем лишние пробелы
 
     return (
         <button
             disabled={disabled}
             className={finalClassName}
-            {...restProps} // отдаём кнопке остальные пропсы если они есть (children там внутри)
+            {...restProps}
         />
-    )
-}
+    );
+};
 
-export default SuperButton
+export default SuperButton;
