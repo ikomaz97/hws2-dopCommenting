@@ -15,11 +15,11 @@ const SuperButton: React.FC<SuperButtonPropsType> = ({
                                                          disabled,
                                                          ...restProps
                                                      }) => {
-    const finalClassName = `${s.button}
-        ${disabled ? s.disabled : ''}
-        ${xType === 'red' ? s.red : ''}
-        ${xType === 'secondary' ? s.secondary : ''}
-        ${className ? ' ' + className : ''}`.trim(); // Убираем лишние пробелы и переносы строк
+    const finalClassName = `${s.button} 
+        ${disabled ? s.disabled : ''} 
+        ${xType === 'red' ? s.red : xType === 'secondary' ? s.secondary : ''}
+        ${className ? ' ' + className : ''}`;
+
 
 
     //ИЛИ ЕСЛИ НЕ ПОНЯТНО С finalClassName  ТОЖЕ САМОЕ ПРИ ПОМОЩИ ШАБЛОННЫХ СТРОК:
