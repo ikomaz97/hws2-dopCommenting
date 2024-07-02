@@ -18,12 +18,13 @@ function Pages() {
             <Routes>
                 {/*роутинг будут писать студенты*/}
                 {/*в начале мы попадаем на страницу '/' и переходим сразу на страницу /pre-junior*/}
-                {/*<Route  path={'...'} element={<Navigate to={...} />}*/}
+                <Route  path={"/"} element={<Navigate to={'/pre-junior'} />}
 
                 {/*роуты для /pre-junior, /junior, /junior-plus*/}
-                {/*<Route path={...} element={<PreJunior />}*/}
-                {/*<Route ...*/}
-                {/*<Route ...*/}
+                <Route path={PATH. PRE_JUNIOR} element={'/pre-junior'}/>
+                <Route path={PATH.JUNIOR} element={<PreJunior/>}/>
+                <Route path={PATH.JUNIOR_PLUS} element={<PreJunior/>}/>
+
 
                 {/*роут для несуществующей страницы должен отрисовать <Error404 />*/}
                 {/*<Route ...*/}
@@ -33,3 +34,25 @@ function Pages() {
 }
 
 export default Pages
+
+
+// function Pages() {
+//     return (
+//         <div>
+//             {/*Routes выбирает первый подходящий роут*/}
+//             <Routes>
+//                 {/*роутинг будут писать студенты*/}
+//                 {/*в начале мы попадаем на страницу '/' и переходим сразу на страницу /pre-junior*/}
+//                 {/*<Route  path={'...'} element={<Navigate to={...} />}*/}
+//
+//                 {/*роуты для /pre-junior, /junior, /junior-plus*/}
+//                 {/*<Route path={...} element={<PreJunior />}*/}
+//                 {/*<Route ...*/}
+//                 {/*<Route ...*/}
+//
+//                 {/*роут для несуществующей страницы должен отрисовать <Error404 />*/}
+//                 {/*<Route ...*/}
+//             </Routes>
+//         </div>
+//     )
+// }
