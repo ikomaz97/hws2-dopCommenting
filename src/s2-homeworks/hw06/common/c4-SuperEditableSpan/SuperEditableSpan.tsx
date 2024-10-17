@@ -3,90 +3,102 @@ import React, {
     InputHTMLAttributes,
     HTMLAttributes,
     useState,
+    useEffect,
 } from 'react'
 import s from './SuperEditableSpan.module.css'
 import SuperInputText from '../../../hw04/common/c1-SuperInputText/SuperInputText'
 import editIcon from './editIcon.svg'
 
 // тип пропсов обычного инпута
-type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement>
+type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 // тип пропсов обычного спана
-type DefaultSpanPropsType = DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>,
-    HTMLSpanElement>
+type DefaultSpanPropsType = DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>
 
-// здесь мы говорим что у нашего инпута будут такие же пропсы как у обычного инпута, кроме type
-// (чтоб не писать value: string, onChange: ...; они уже все описаны в DefaultInputPropsType)
+// тип для нашего компонента
 type SuperEditableSpanType = Omit<DefaultInputPropsType, 'type'> & {
-    // и + ещё пропсы которых нет в стандартном инпуте
     onChangeText?: (value: string) => void
     onEnter?: () => void
     error?: string
-
-    spanProps?: DefaultSpanPropsType  & {defaultText?: string}// пропсы для спана
+    spanProps?: DefaultSpanPropsType & { defaultText?: string }
 }
 
-const SuperEditableSpan: React.FC<SuperEditableSpanType> = (
-    {
-        autoFocus,
-        onBlur,
-        onEnter,
-        spanProps,
-
-        ...restProps // все остальные пропсы попадут в объект restProps
-    }
-) => {
+const SuperEditableSpan: React.FC<SuperEditableSpanType> = ({
+                                                                autoFocus,
+                                                                onBlur,
+                                                                onEnter,
+                                                                spanProps,
+                                                                ...restProps
+                                                            }) => {
     const [editMode, setEditMode] = useState<boolean>(false)
-    const {children, onDoubleClick, className, defaultText, ...restSpanProps} =
-    spanProps || {}
+    const [value, setValue] = useState<string>(restProps.value as string || spanProps?.defaultText || '')
+
+    const { children, onDoubleClick, className, defaultText, ...restSpanProps } = spanProps || {}
+
+    // Восстанавливаем значение из localStorage при монтировании компонента
+    useEffect(() => {
+        const savedValue = localStorage.getItem('editableSpanText')
+        if (savedValue) {
+            setValue(savedValue)
+        }
+    }, [])
 
     const onEnterCallback = () => {
-        setEditMode(false); // Exiting edit mode on pressing Enter
-        onEnter?.();
-    }
-    const onBlurCallback = (e: React.FocusEvent<HTMLInputElement>) => {
-        setEditMode(false); // Exiting edit mode when losing focus
-        onBlur?.(e);
-    }
-    const onDoubleClickCallBack = (
-        e: React.MouseEvent<HTMLSpanElement, MouseEvent>
-    ) => {
-        setEditMode(true); // Entering edit mode on double-click
-        onDoubleClick?.(e);
+        setEditMode(false)
+        onEnter?.()
     }
 
-    const spanClassName = s.span
-        + (className ? ' ' + className : '')
+    const onBlurCallback = (e: React.FocusEvent<HTMLInputElement>) => {
+        setEditMode(false)
+        onBlur?.(e)
+    }
+
+    const onDoubleClickCallBack = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+        setEditMode(true)
+        onDoubleClick?.(e)
+    }
+
+    // Функция для сохранения значения в localStorage
+    const saveToLocalStorage = () => {
+        localStorage.setItem('editableSpanText', value)
+    }
+
+    // Функция для восстановления значения из localStorage
+    const restoreFromLocalStorage = () => {
+        const savedValue = localStorage.getItem('editableSpanText')
+        if (savedValue) {
+            setValue(savedValue)
+        }
+    }
+
+    const spanClassName = `${s.span} ${className ? className : ''}`
 
     return (
-        <>
+        <div>
             {editMode ? (
                 <SuperInputText
                     autoFocus={autoFocus || true}
                     onBlur={onBlurCallback}
                     onEnter={onEnterCallback}
+                    value={value}
+                    onChange={(e) => setValue(e.currentTarget.value)}
                     className={s.input}
-                    {...restProps} // отдаём инпуту остальные пропсы если они есть (value например там внутри)
+                    {...restProps}
                 />
             ) : (
                 <div className={s.spanBlock}>
-                    <img
-                        src={editIcon}
-                        className={s.pen}
-                        alt={'edit'}
-                    />
-                    <span
-                        onDoubleClick={onDoubleClickCallBack}
-                        className={spanClassName}
-                        {...restSpanProps}
-                    >
-                        {/*если нет захардкодженного текста для спана, то значение инпута*/}
-
-                        {children || restProps.value || defaultText}
+                    <img src={editIcon} className={s.pen} alt="edit" />
+                    <span onDoubleClick={onDoubleClickCallBack} className={spanClassName} {...restSpanProps}>
+                        {children || value || defaultText}
                     </span>
                 </div>
             )}
-        </>
+
+            {/* Кнопки для сохранения и восстановления текста */}
+            <div>
+                <button onClick={saveToLocalStorage}>Save</button>
+                <button onClick={restoreFromLocalStorage}>Restore</button>
+            </div>
+        </div>
     )
 }
 
