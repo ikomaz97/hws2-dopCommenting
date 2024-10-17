@@ -34,14 +34,6 @@ const SuperEditableSpan: React.FC<SuperEditableSpanType> = ({
 
     const { children, onDoubleClick, className, defaultText, ...restSpanProps } = spanProps || {}
 
-    // Восстанавливаем значение из localStorage при монтировании компонента
-    useEffect(() => {
-        const savedValue = localStorage.getItem('editableSpanText')
-        if (savedValue) {
-            setValue(savedValue)
-        }
-    }, [])
-
     const onEnterCallback = () => {
         setEditMode(false)
         onEnter?.()
@@ -57,48 +49,36 @@ const SuperEditableSpan: React.FC<SuperEditableSpanType> = ({
         onDoubleClick?.(e)
     }
 
-    // Функция для сохранения значения в localStorage
-    const saveToLocalStorage = () => {
-        localStorage.setItem('editableSpanText', value)
-    }
-
-    // Функция для восстановления значения из localStorage
-    const restoreFromLocalStorage = () => {
-        const savedValue = localStorage.getItem('editableSpanText')
-        if (savedValue) {
-            setValue(savedValue)
-        }
-    }
-
     const spanClassName = `${s.span} ${className ? className : ''}`
 
     return (
-        <div>
+        <>
             {editMode ? (
                 <SuperInputText
                     autoFocus={autoFocus || true}
                     onBlur={onBlurCallback}
                     onEnter={onEnterCallback}
                     value={value}
-                    onChange={(e) => setValue(e.currentTarget.value)}
+                    onChange={(e) => {
+                        setValue(e.currentTarget.value)
+                        restProps.onChange?.(e)
+                    }}
                     className={s.input}
                     {...restProps}
                 />
             ) : (
                 <div className={s.spanBlock}>
                     <img src={editIcon} className={s.pen} alt="edit" />
-                    <span onDoubleClick={onDoubleClickCallBack} className={spanClassName} {...restSpanProps}>
+                    <span
+                        onDoubleClick={onDoubleClickCallBack}
+                        className={spanClassName}
+                        {...restSpanProps}
+                    >
                         {children || value || defaultText}
                     </span>
                 </div>
             )}
-
-            {/* Кнопки для сохранения и восстановления текста */}
-            <div>
-                <button onClick={saveToLocalStorage}>Save</button>
-                <button onClick={restoreFromLocalStorage}>Restore</button>
-            </div>
-        </div>
+        </>
     )
 }
 
