@@ -35,36 +35,42 @@ const SuperRadio: React.FC<SuperRadioPropsType> = ({
     ...restProps
 }) => {
     const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
-        // делают студенты
-    }
+        const selectedValue = e.target.value; // Получаем значение выбранной радио-кнопки
+        if (onChangeOption && options) {
+            const selectedOption = options.find(o => o.id.toString() === selectedValue); // Ищем выбранный объект
+            onChangeOption(selectedOption); // Вызываем кастомный обработчик с выбранным объектом
+        }
+        if (onChange) {
+            onChange(e); // Вызываем стандартный onChange
+        }
+    };
 
     const finalRadioClassName = s.radio + (className ? ' ' + className : '')
     const spanClassName = s.span + (spanProps?.className ? ' ' + spanProps.className : '')
 
     const mappedOptions: any[] = options
         ? options.map((o) => (
-              <label key={name + '-' + o.id} className={s.label}>
-                  <input
-                      id={id + '-input-' + o.id}
-                      className={finalRadioClassName}
-                      type={'radio'}
-                      // name, checked, value делают студенты
-                      // http://htmlbook.ru/html/input/name
-                      //checked={o.id === ...может попробовать значение которое тянем из HW7?}
-
-                      onChange={onChangeCallback}
-                      {...restProps}
-                  />
-                  <span
-                      id={id + '-span-' + o.id}
-                      {...spanProps}
-                      className={spanClassName}
-                  >
-                      {o.value}
-                  </span>
-              </label>
-          ))
-        : []
+            <label key={name + '-' + o.id} className={s.label}>
+                <input
+                    id={id + '-input-' + o.id}
+                    className={finalRadioClassName}
+                    type={'radio'}
+                    name={name} // Все кнопки в группе должны иметь одинаковый name
+                    value={o.id} // Значение этой кнопки
+                    checked={o.id === value} // Отмечена ли эта кнопка
+                    onChange={onChangeCallback} // Обработчик события
+                    {...restProps}
+                />
+                <span
+                    id={id + '-span-' + o.id}
+                    {...spanProps}
+                    className={spanClassName}
+                >
+                  {o.value}
+              </span>
+            </label>
+        ))
+        : [];
 
     return <div className={s.options}>{mappedOptions}</div>
 }
