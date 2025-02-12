@@ -1,25 +1,25 @@
-import React from 'react'
-import { UserType } from './HW8'
-import s from './HW8.module.css'
+import React from 'react';
+import { UserType } from './HW8';
+import s from './HW8.module.css';
 
 // types
 type UserPropsType = {
-    u: UserType
+    u: UserType;
 }
 
 const User: React.FC<UserPropsType> = ({ u }) => {
+    const { _id, name, age } = u;
+
     return (
-        <tr id={'hw8-user-' + u._id + '-' + u.age} className={s.item}>
-            <td id={'hw8-user-name-' + u._id} className={s.nameCol}>
-                {/*отобразить имя*/}
-
+        <tr id={`hw8-user-${_id}-${age}`} className={s.item}>
+            <td id={`hw8-user-name-${_id}`} className={s.nameCol}>
+                {name} {/* Отображаем имя */}
             </td>
-            <td id={'hw8-user-age-' + u._id}>
-                {/*отобразить возраст*/}
-
+            <td id={`hw8-user-age-${_id}`} className={s.ageCol}>
+                {age} {/* Отображаем возраст */}
             </td>
         </tr>
-    )
+    );
 }
 
-export default User
+export default User;
