@@ -1,37 +1,47 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import SuperButton from '../hw04/common/c2-SuperButton/SuperButton'
 import { restoreState } from '../hw06/localStorage/localStorage'
 import s from './Clock.module.css'
 
 function Clock() {
-    const [timerId, setTimerId] = useState<number | undefined>(undefined)
+    const [timerId, setTimerId] = useState<number | null>(null)
     const [date, setDate] = useState<Date>(new Date(restoreState('hw9-date', Date.now())))
     const [show, setShow] = useState<boolean>(false)
 
+    // Функции форматирования даты и времени
+    const formatTime = (date: Date) => date.toLocaleTimeString('en-GB', { hour12: false }) // HH:mm:ss
+    const formatDate = (date: Date) => date.toLocaleDateString('ru-RU'); // dd.MM.yyyy
+    const formatDay = (date: Date) => date.toLocaleString('en-GB', { weekday: 'long' }) // День недели
+    const formatMonth = (date: Date) => date.toLocaleString('en-GB', { month: 'long' }) // Название месяца
+
+    // Функция запуска таймера
     const start = () => {
-        if (!timerId) {
+        if (!timerId) { // Если таймер не запущен
             const id = window.setInterval(() => {
-                setDate(new Date())
+                setDate(new Date()) // Обновляем дату каждую секунду
             }, 1000)
-            setTimerId(id)
+            setTimerId(id) // Сохраняем id таймера
         }
     }
 
+    // Функция остановки таймера
     const stop = () => {
         if (timerId) {
-            clearInterval(timerId)
-            setTimerId(undefined)
+            clearInterval(timerId) // Останавливаем таймер
+            setTimerId(null) // Обнуляем id таймера
         }
     }
 
+    // Функции для показа и скрытия даты при наведении
     const onMouseEnter = () => setShow(true)
     const onMouseLeave = () => setShow(false)
 
-    const stringTime = date.toLocaleTimeString('en-GB') // 24-hour format
-    const stringDate = date.toLocaleDateString('en-GB') // DD/MM/YYYY
-
-    const stringDay = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(date)
-    const stringMonth = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(date)
+    // Чистка таймера при размонтировании
+    useEffect(() => {
+        return () => {
+            if (timerId) clearInterval(timerId)
+        }
+    }, [timerId])
 
     return (
         <div className={s.clock}>
@@ -41,9 +51,9 @@ function Clock() {
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
             >
-                <span id={'hw9-day'}>{stringDay}</span>,{' '}
+                <span id={'hw9-day'}>{formatDay(date)}</span>,{' '}
                 <span id={'hw9-time'}>
-                    <strong>{stringTime}</strong>
+                    <strong>{formatTime(date)}</strong>
                 </span>
             </div>
 
@@ -51,11 +61,11 @@ function Clock() {
                 <div className={s.more}>
                     {show ? (
                         <>
-                            <span id={'hw9-month'}>{stringMonth}</span>,{' '}
-                            <span id={'hw9-date'}>{stringDate}</span>
+                            <span id={'hw9-month'}>{formatMonth(date)}</span>,{' '}
+                            <span id={'hw9-date'}>{formatDate(date)}</span>
                         </>
                     ) : (
-                        <br />
+                        <><br/></>
                     )}
                 </div>
             </div>
@@ -63,14 +73,14 @@ function Clock() {
             <div className={s.buttonsContainer}>
                 <SuperButton
                     id={'hw9-button-start'}
-                    disabled={!!timerId}
+                    disabled={!!timerId} // Блокируем, если таймер уже запущен
                     onClick={start}
                 >
                     start
                 </SuperButton>
                 <SuperButton
                     id={'hw9-button-stop'}
-                    disabled={!timerId}
+                    disabled={!timerId} // Блокируем, если таймер не запущен
                     onClick={stop}
                 >
                     stop
