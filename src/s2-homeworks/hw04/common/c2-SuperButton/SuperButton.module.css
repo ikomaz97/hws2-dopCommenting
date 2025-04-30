@@ -1,49 +1,28 @@
 .button {
-    /* Общие стили для кнопки */
-    padding: 8px 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #f0f0f0;
-    color: #333;
-    font-size: 14px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    border-radius: 5px;
+    transition: background-color 0.3s;
 }
 
 .disabled {
-    /* Стили для отключенной кнопки */
-    opacity: 0.5;
+    background-color: #ccc;
     cursor: not-allowed;
-}
-
-.secondary {
-    /* Стили для кнопки со вторичным типом */
-    background-color: #ddd;
-    color: #666;
 }
 
 .red {
-    /* Стили для красной кнопки */
-    background-color: #ff6b6b;
-    color: #fff;
+    background-color: red;
+    color: white;
 }
 
-/* Стили для состояния :hover */
-.default:hover,
-.secondary:hover,
-.red:hover {
-    background-color: #ccc;
+.secondary {
+    background-color: #f0f0f0;
+    color: black;
 }
 
-/* Стили для состояния :active */
-.default:active,
-.secondary:active,
-.red:active {
-    transform: translateY(1px); /* Пример анимации нажатия */
-}
-
-/* Стили для отключенной кнопки */
-.button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+.default {
+    background-color: #3498db;
+    color: white;
 }
