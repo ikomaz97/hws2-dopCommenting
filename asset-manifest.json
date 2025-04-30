@@ -1,10 +1,10 @@
 {
   "files": {
     "main.css": "/hws2-dopCommenting/static/css/main.9fb768ed.css",
-    "main.js": "/hws2-dopCommenting/static/js/main.1ca9c1fd.js",
-    "static/js/453.6a2980d5.chunk.js": "/hws2-dopCommenting/static/js/453.6a2980d5.chunk.js",
-    "static/js/780.f802f9f6.chunk.js": "/hws2-dopCommenting/static/js/780.f802f9f6.chunk.js",
-    "static/js/472.9b355a63.chunk.js": "/hws2-dopCommenting/static/js/472.9b355a63.chunk.js",
+    "main.js": "/hws2-dopCommenting/static/js/main.981a63ff.js",
+    "static/js/453.0089a6bf.chunk.js": "/hws2-dopCommenting/static/js/453.0089a6bf.chunk.js",
+    "static/js/780.326adb78.chunk.js": "/hws2-dopCommenting/static/js/780.326adb78.chunk.js",
+    "static/js/614.9c5617c0.chunk.js": "/hws2-dopCommenting/static/js/614.9c5617c0.chunk.js",
     "static/media/avatar.png": "/hws2-dopCommenting/static/media/avatar.d947cb9d0d13765666b6.png",
     "static/media/404.svg": "/hws2-dopCommenting/static/media/404.9ec31c0ba8d95b0480272e46af98c955.svg",
     "static/media/closeOutline.svg": "/hws2-dopCommenting/static/media/closeOutline.b64ba402fac8a549bc2de97e9cf84a61.svg",
@@ -13,13 +13,13 @@
     "index.html": "/hws2-dopCommenting/index.html",
     "static/media/burger.svg": "/hws2-dopCommenting/static/media/burger.700e416f7bfe3697f96b36c778d25355.svg",
     "main.9fb768ed.css.map": "/hws2-dopCommenting/static/css/main.9fb768ed.css.map",
-    "main.1ca9c1fd.js.map": "/hws2-dopCommenting/static/js/main.1ca9c1fd.js.map",
-    "453.6a2980d5.chunk.js.map": "/hws2-dopCommenting/static/js/453.6a2980d5.chunk.js.map",
-    "780.f802f9f6.chunk.js.map": "/hws2-dopCommenting/static/js/780.f802f9f6.chunk.js.map",
-    "472.9b355a63.chunk.js.map": "/hws2-dopCommenting/static/js/472.9b355a63.chunk.js.map"
+    "main.981a63ff.js.map": "/hws2-dopCommenting/static/js/main.981a63ff.js.map",
+    "453.0089a6bf.chunk.js.map": "/hws2-dopCommenting/static/js/453.0089a6bf.chunk.js.map",
+    "780.326adb78.chunk.js.map": "/hws2-dopCommenting/static/js/780.326adb78.chunk.js.map",
+    "614.9c5617c0.chunk.js.map": "/hws2-dopCommenting/static/js/614.9c5617c0.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9fb768ed.css",
-    "static/js/main.1ca9c1fd.js"
+    "static/js/main.981a63ff.js"
   ]
 }
