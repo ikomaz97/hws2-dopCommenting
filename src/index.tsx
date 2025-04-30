@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import { DevSupport } from '@react-buddy/ide-toolbox';
 import { ComponentPreviews, useInitial } from './dev';
 
-const container = document.getElementById('root');
+const container = document.getElementById('root') as HTMLElement | null;
 
 if (container) {
     const root = ReactDOM.createRoot(container);
@@ -22,8 +22,10 @@ if (container) {
         </React.StrictMode>
     );
 
-    // Запускаем метрики (если нужны)
-    reportWebVitals();
+    // Запуск метрик только в продакшн-сборке
+    if (process.env.NODE_ENV === 'production') {
+        reportWebVitals();
+    }
 } else {
     console.error("❌ Элемент с id='root' не найден в HTML. Убедись, что в public/index.html есть <div id='root'></div>");
 }
