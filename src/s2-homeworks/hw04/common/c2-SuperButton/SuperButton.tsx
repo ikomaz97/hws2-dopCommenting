@@ -1,12 +1,10 @@
-import React, {ButtonHTMLAttributes, DetailedHTMLProps} from 'react'
-import s from './SuperButton.module.css'
+import React, { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
+import s from './SuperButton.module.css';
 
-// тип пропсов обычной кнопки, children в котором храниться название кнопки там уже описан
-type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>,
-    HTMLButtonElement>
+type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
 
 type SuperButtonPropsType = DefaultButtonPropsType & {
-    xType?: string
+    xType?: string;
 }
 
 const SuperButton: React.FC<SuperButtonPropsType> = ({
@@ -20,12 +18,6 @@ const SuperButton: React.FC<SuperButtonPropsType> = ({
         ${xType === 'red' ? s.red : xType === 'secondary' ? s.secondary : s.default}
         ${className ? ' ' + className : ''}`;
 
-
-
-    //ИЛИ ЕСЛИ НЕ ПОНЯТНО С finalClassName  ТОЖЕ САМОЕ ПРИ ПОМОЩИ ШАБЛОННЫХ СТРОК:
-    // `${s.СТИЛЬ КНОПКИ}  ${xType==='КРАСНЫЙ' ? ДАВАЙ КРАСНЫЙ СТИЛЬ : xType === 'secondary' ? ДАВАЙ СЕКОНДАРИ СТИЛЬ: ДАВАЙ ПО ДЕФОЛТУ } ${disabled ? ДАВАЙ ДИЗАБЛЕТ СТИЛЬ :  ПУСТУЮ СТРОКУ} `
-    // ЭТУ АЛХИМИЯ БУДЕМ ПОДРОБНО РАЗБИРАТЬ НА ДОПАХ
-
     return (
         <button
             disabled={disabled}
@@ -33,6 +25,6 @@ const SuperButton: React.FC<SuperButtonPropsType> = ({
             {...restProps}
         />
     );
-};
+}
 
-export default SuperButton
+export default SuperButton;
