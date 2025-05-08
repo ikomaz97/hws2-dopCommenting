@@ -1,21 +1,17 @@
-import { combineReducers, legacy_createStore } from 'redux';
-import { loadingReducer } from './loadingReducer';
-import { themeReducer } from '../../hw12/bll/themeReducer';
+import { combineReducers, legacy_createStore } from 'redux'
+import { loadingReducer } from './loadingReducer'
+import { themeReducer } from '../../hw12/bll/themeReducer'
 
 const reducers = combineReducers({
-    loading: loadingReducer, // hw10
-    theme: themeReducer, // hw12
-});
+    loading: loadingReducer,
+    theme: themeReducer,
+})
 
-const store = legacy_createStore(reducers);
+const store = legacy_createStore(reducers)
 
-export default store;
+export default store
 
-// Типизация состояния приложения
-export type AppStoreType = ReturnType<typeof reducers>;
+export type AppStoreType = ReturnType<typeof reducers>
 
-// Доступ к store в разработке для автотестов
-if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
-    // @ts-ignore
-    window.store = store;
-}
+// @ts-ignore
+window.store = store

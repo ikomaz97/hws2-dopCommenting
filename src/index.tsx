@@ -1,31 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './s1-main/App';
-import reportWebVitals from './reportWebVitals';
-import store from './s2-homeworks/hw10/bll/store';
-import { Provider } from 'react-redux';
-import { DevSupport } from '@react-buddy/ide-toolbox';
-import { ComponentPreviews, useInitial } from './dev';
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import './index.css'
+import App from './s1-main/App'
+import { Provider } from 'react-redux'
+import store from './s2-homeworks/hw10/bll/store'
 
-const container = document.getElementById('root') as HTMLElement | null;
+const root = ReactDOM.createRoot(
+    document.getElementById('root') as HTMLElement
+)
 
-if (container) {
-    const root = ReactDOM.createRoot(container);
-    root.render(
-        <React.StrictMode>
-            <Provider store={store}>
-                <DevSupport ComponentPreviews={ComponentPreviews} useInitialHook={useInitial}>
-                    <App />
-                </DevSupport>
-            </Provider>
-        </React.StrictMode>
-    );
-
-    // Запуск метрик только в продакшн-сборке
-    if (process.env.NODE_ENV === 'production') {
-        reportWebVitals();
-    }
-} else {
-    console.error("❌ Элемент с id='root' не найден в HTML. Убедись, что в public/index.html есть <div id='root'></div>");
-}
+root.render(
+    <React.StrictMode>
+        <Provider store={store}>
+            <App />
+        </Provider>
+    </React.StrictMode>
+)

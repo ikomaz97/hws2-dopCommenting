@@ -4,9 +4,11 @@ import s2 from '../../s1-main/App.module.css'
 import SuperSelect from '../hw07/common/c5-SuperSelect/SuperSelect'
 import { useDispatch, useSelector } from 'react-redux'
 import { changeThemeId } from './bll/themeReducer'
-import { AppStoreType } from '../hw10/bll/store' //  src/s2-homeworks/hw10/bll/store.ts ✅ Fixed (removed .ts)
+import { AppStoreType } from '../hw10/bll/store'
 
-const themes = [
+type OptionType = { id: string | number; value: string }
+
+const themes: OptionType[] = [
     { id: 1, value: 'light' },
     { id: 2, value: 'blue' },
     { id: 3, value: 'dark' },
@@ -16,12 +18,15 @@ const HW12 = () => {
     const dispatch = useDispatch()
     const themeId = useSelector((state: AppStoreType) => state.theme.themeId)
 
-    const change = (id: number) => {
-        dispatch(changeThemeId(id))
+    const change = (option: OptionType | null) => {
+        if (option) {
+            // Преобразуем id в number
+            dispatch(changeThemeId(Number(option.id)))
+        }
     }
 
     useEffect(() => {
-        document.documentElement.dataset.theme = themeId + ''
+        document.documentElement.dataset.theme = themeId.toString()
     }, [themeId])
 
     return (
@@ -35,8 +40,7 @@ const HW12 = () => {
                     id={'hw12-select-theme'}
                     className={s.select}
                     options={themes}
-                    onChangeOption={(option) => option && change(option.id as number)}
-                    data-testid="hw12-select-theme"
+                    onChangeOption={change}
                 />
             </div>
         </div>

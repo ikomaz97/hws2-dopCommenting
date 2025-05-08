@@ -1,7 +1,9 @@
 import React, { SelectHTMLAttributes, DetailedHTMLProps, ChangeEvent } from 'react';
 import s from './SuperSelect.module.css';
 
-type OptionType = { id: string | number; value: string };
+
+
+type OptionType = { id: string | number; value: string }
 
 type DefaultSelectPropsType = DetailedHTMLProps<
     SelectHTMLAttributes<HTMLSelectElement>,
