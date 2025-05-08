@@ -15,7 +15,7 @@ export default store;
 export type AppStoreType = ReturnType<typeof reducers>;
 
 // Доступ к store в разработке для автотестов
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
     // @ts-ignore
     window.store = store;
 }
