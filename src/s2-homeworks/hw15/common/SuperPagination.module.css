@@ -1,0 +1,81 @@
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.pages {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.pageButton {
+    min-width: 36px;
+    height: 36px;
+    padding: 0 6px;
+    border: 1px solid #e0e0e0;
+    background-color: white;
+    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pageButton:hover:not(:disabled) {
+    background-color: #f5f5f5;
+    border-color: #999;
+}
+
+.pageButton.active {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+}
+
+.pageButton.dots {
+    border: none;
+    cursor: default;
+    background: transparent;
+}
+
+.pageButton.dots:hover {
+    background: transparent;
+}
+
+.showBlock {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.showText {
+    color: #666;
+    font-size: 14px;
+}
+
+.select {
+    padding: 8px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+    background-color: white;
+    cursor: pointer;
+    outline: none;
+}
+
+.select:hover {
+    border-color: #999;
+}
+
+.select:focus {
+    border-color: #007bff;
+}
