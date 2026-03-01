@@ -59,31 +59,30 @@ export const HW15 = () => {
     const [sort, setSort] = useState('')
     const [isLoading] = useState(false)
 
-    // ✅ SORT FIRST
     const getSortedData = () => {
-        if (!sort) return [...techs]
+        if (!sort) return techs
 
-        const direction = sort[0] // '1' asc | '0' desc
+        const direction = sort[0] // '0' или '1'
         const field = sort.substring(1) as 'tech' | 'developer'
 
         return [...techs].sort((a, b) => {
-            const result = a[field].localeCompare(
-                b[field],
-                undefined,
-                { numeric: true }
-            )
+            const comparison = a[field].localeCompare(b[field], undefined, { numeric: true })
 
-            return direction === '1' ? result : -result
+            if (direction === '0') {
+                // '0' = УБЫВАНИЕ (Z → A, 9 → 0)
+                return -comparison
+            } else {
+                // '1' = ВОЗРАСТАНИЕ (A → Z, 0 → 9)
+                return comparison
+            }
         })
     }
 
     const sortedData = getSortedData()
 
-    // ✅ THEN PAGINATION
-    const currentData = sortedData.slice(
-        (page - 1) * count,
-        page * count
-    )
+    // ✅ Используем оригинальные ID из данных (БЕЗ переназначения)
+    const effectiveCount = sort ? techs.length : count
+    const currentData = sortedData.slice((page - 1) * effectiveCount, page * effectiveCount)
 
     const onChangePagination = (newPage: number, newCount: number) => {
         setPage(newPage)
@@ -103,7 +102,7 @@ export const HW15 = () => {
 
             <SuperPagination
                 page={page}
-                itemsCountForPage={count}
+                itemsCountForPage={sort ? techs.length : count}
                 totalCount={techs.length}
                 onChange={onChangePagination}
             />
@@ -131,17 +130,11 @@ export const HW15 = () => {
                     </th>
                 </tr>
                 </thead>
-
                 <tbody>
-                {currentData.map(item => (
+                {currentData.map((item) => (
                     <tr key={item.id}>
-                        {/* ✅ ВАЖНО: id = item.id */}
-                        <td id={`hw15-tech-${item.id}`}>
-                            {item.tech}
-                        </td>
-                        <td id={`hw15-developer-${item.id}`}>
-                            {item.developer}
-                        </td>
+                        <td id={`hw15-tech-${item.id}`}>{item.tech}</td>
+                        <td id={`hw15-developer-${item.id}`}>{item.developer}</td>
                     </tr>
                 ))}
                 </tbody>
