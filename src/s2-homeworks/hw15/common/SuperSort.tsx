@@ -1,5 +1,19 @@
 import React from 'react'
-import { pureChange } from "../helpers/sortHelpers"
+
+export const pureChange = (
+    sort: string,
+    down: string,
+    up: string
+) => {
+    switch (sort) {
+        case down:
+            return up
+        case up:
+            return ''
+        default:
+            return down
+    }
+}
 
 type Props = {
     id?: string
@@ -14,32 +28,27 @@ export const SuperSort: React.FC<Props> = ({
                                                onChange,
                                                id
                                            }) => {
-    const downSort = '0' + value
-    const upSort = '1' + value
+    const up = '0' + value
+    const down = '1' + value
 
     const handleClick = () => {
-        onChange(pureChange(sort, downSort))
+        onChange(pureChange(sort, down, up))
     }
 
-    const getIcon = () => {
-        if (sort === downSort) return '▼'
-        if (sort === upSort) return '▲'
-        return '↕️'
-    }
+    const icon =
+        sort === down
+            ? '▼'
+            : sort === up
+                ? '▲'
+                : '↕️'
 
     return (
         <span
             id={id}
             onClick={handleClick}
-            style={{
-                cursor: 'pointer',
-                marginLeft: 8,
-                display: 'inline-block',
-                minWidth: 20,
-                textAlign: 'center'
-            }}
+            style={{ cursor: 'pointer', marginLeft: 6 }}
         >
-            {getIcon()}
+            {icon}
         </span>
     )
 }
