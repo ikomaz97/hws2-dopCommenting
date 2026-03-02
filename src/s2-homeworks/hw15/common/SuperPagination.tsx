@@ -21,7 +21,9 @@ export const SuperPagination: React.FC<Props> = ({
                 <button
                     key={p}
                     onClick={() => onChange(p, itemsCountForPage)}
-                    style={{ fontWeight: p === page ? 'bold' : 'normal' }}
+                    style={{
+                        fontWeight: p === page ? 'bold' : 'normal'
+                    }}
                 >
                     {p}
                 </button>
@@ -30,14 +32,16 @@ export const SuperPagination: React.FC<Props> = ({
             <select
                 id="hw15-pagination-select"
                 value={itemsCountForPage}
-                onChange={e => onChange(1, Number(e.target.value))}
+                onChange={e =>
+                    onChange(1, Number(e.target.value))
+                }
             >
                 <option value="4">4</option>
                 <option value="7">7</option>
                 <option value="10">10</option>
             </select>
 
-            <span>строк в таблице</span>
+            <span> строк в таблице</span>
         </div>
     )
 }
