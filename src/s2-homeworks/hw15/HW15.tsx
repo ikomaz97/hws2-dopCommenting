@@ -1,88 +1,49 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import { SuperPagination } from './common/SuperPagination'
 import { SuperSort } from './common/SuperSort'
 
-const techs = [
-    { id: 1, tech: 'html', developer: 'developer1' },
-    { id: 2, tech: 'css', developer: 'developer1' },
-    { id: 3, tech: 'javascript', developer: 'developer1' },
-    { id: 4, tech: 'typescript', developer: 'developer1' },
-    { id: 5, tech: 'scss', developer: 'developer1' },
-    { id: 6, tech: 'jest', developer: 'developer1' },
+type TechType = {
+    id: number
+    tech: string
+    developer: string
+}
 
-    { id: 7, tech: 'html', developer: 'developer2' },
-    { id: 8, tech: 'css', developer: 'developer2' },
-    { id: 9, tech: 'javascript', developer: 'developer2' },
-    { id: 10, tech: 'typescript', developer: 'developer2' },
-    { id: 11, tech: 'scss', developer: 'developer2' },
-    { id: 12, tech: 'jest', developer: 'developer2' },
+type ParamsType = {
+    sort: string
+    page: number
+    count: number
+}
 
-    { id: 13, tech: 'html', developer: 'developer3' },
-    { id: 14, tech: 'css', developer: 'developer3' },
-    { id: 15, tech: 'javascript', developer: 'developer3' },
-    { id: 16, tech: 'typescript', developer: 'developer3' },
-    { id: 17, tech: 'scss', developer: 'developer3' },
-    { id: 18, tech: 'jest', developer: 'developer3' },
-
-    { id: 19, tech: 'html', developer: 'developer4' },
-    { id: 20, tech: 'css', developer: 'developer4' },
-    { id: 21, tech: 'javascript', developer: 'developer4' },
-    { id: 22, tech: 'typescript', developer: 'developer4' },
-    { id: 23, tech: 'scss', developer: 'developer4' },
-    { id: 24, tech: 'jest', developer: 'developer4' },
-
-    { id: 25, tech: 'html', developer: 'developer5' },
-    { id: 26, tech: 'css', developer: 'developer5' },
-    { id: 27, tech: 'javascript', developer: 'developer5' },
-    { id: 28, tech: 'typescript', developer: 'developer5' },
-    { id: 29, tech: 'scss', developer: 'developer5' },
-    { id: 30, tech: 'jest', developer: 'developer5' },
-
-    { id: 31, tech: 'html', developer: 'developer6' },
-    { id: 32, tech: 'css', developer: 'developer6' },
-    { id: 33, tech: 'javascript', developer: 'developer6' },
-    { id: 34, tech: 'typescript', developer: 'developer6' },
-    { id: 35, tech: 'scss', developer: 'developer6' },
-    { id: 36, tech: 'jest', developer: 'developer6' },
-
-    { id: 37, tech: 'html', developer: 'developer7' },
-    { id: 38, tech: 'css', developer: 'developer7' },
-    { id: 39, tech: 'javascript', developer: 'developer7' },
-    { id: 40, tech: 'typescript', developer: 'developer7' },
-    { id: 41, tech: 'scss', developer: 'developer7' },
-    { id: 42, tech: 'jest', developer: 'developer7' },
-]
+const getTechs = (params: ParamsType) => {
+    return axios.get<{ techs: TechType[]; totalCount: number }>(
+        'https://samurai.it-incubator.io/api/3.0/homework/test3',
+        { params }
+    )
+}
 
 export const HW15 = () => {
+    const [techs, setTechs] = useState<TechType[]>([])
     const [page, setPage] = useState(1)
     const [count, setCount] = useState(4)
     const [sort, setSort] = useState('')
-    const [isLoading] = useState(false)
+    const [totalCount, setTotalCount] = useState(0)
+    const [loading, setLoading] = useState(false)
 
-    const getSortedData = () => {
-        if (!sort) return techs
+    const sendQuery = (params: ParamsType) => {
+        setLoading(true)
 
-        const direction = sort[0] // '0' или '1'
-        const field = sort.substring(1) as 'tech' | 'developer'
-
-        return [...techs].sort((a, b) => {
-            const comparison = a[field].localeCompare(b[field], undefined, { numeric: true })
-
-            if (direction === '0') {
-                // '0' = УБЫВАНИЕ (Z → A, 9 → 0)
-                return -comparison
-            } else {
-                // '1' = ВОЗРАСТАНИЕ (A → Z, 0 → 9)
-                return comparison
-            }
-        })
+        getTechs(params)
+            .then(res => {
+                setTechs(res.data.techs)
+                setTotalCount(res.data.totalCount)
+            })
+            .finally(() => setLoading(false))
     }
 
-    const sortedData = getSortedData()
-
-    // ✅ Используем оригинальные ID из данных (БЕЗ переназначения)
-    const effectiveCount = sort ? techs.length : count
-    const currentData = sortedData.slice((page - 1) * effectiveCount, page * effectiveCount)
+    useEffect(() => {
+        sendQuery({ page, count, sort })
+    }, [page, count, sort])
 
     const onChangePagination = (newPage: number, newCount: number) => {
         setPage(newPage)
@@ -95,15 +56,15 @@ export const HW15 = () => {
     }
 
     return (
-        <div>
-            <h2>Hometask № 15</h2>
+        <div id="hw15">
+            <h2>Homework №15</h2>
 
-            {isLoading && <div id="hw15-loading">loading...</div>}
+            {loading && <div id="hw15-loading">loading...</div>}
 
             <SuperPagination
                 page={page}
-                itemsCountForPage={sort ? techs.length : count}
-                totalCount={techs.length}
+                itemsCountForPage={count}
+                totalCount={totalCount}
                 onChange={onChangePagination}
             />
 
@@ -130,11 +91,14 @@ export const HW15 = () => {
                     </th>
                 </tr>
                 </thead>
+
                 <tbody>
-                {currentData.map((item) => (
-                    <tr key={item.id}>
-                        <td id={`hw15-tech-${item.id}`}>{item.tech}</td>
-                        <td id={`hw15-developer-${item.id}`}>{item.developer}</td>
+                {techs.map(t => (
+                    <tr key={t.id}>
+                        <td id={`hw15-tech-${t.id}`}>{t.tech}</td>
+                        <td id={`hw15-developer-${t.id}`}>
+                            {t.developer}
+                        </td>
                     </tr>
                 ))}
                 </tbody>
