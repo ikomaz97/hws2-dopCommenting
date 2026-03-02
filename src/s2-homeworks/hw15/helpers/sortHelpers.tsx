@@ -1,9 +1,14 @@
-export const pureChange = (sort: string, downSort: string) => {
-    const upSort = '1' + downSort.substring(1)
-
-    if (sort === '') return upSort
-    if (sort === upSort) return downSort
-    if (sort === downSort) return ''
-
-    return upSort
+export const pureChange = (
+    sort: string,
+    down: string,
+    up: string
+) => {
+    switch (sort) {
+        case down:
+            return up
+        case up:
+            return ''
+        default:
+            return down
+    }
 }
