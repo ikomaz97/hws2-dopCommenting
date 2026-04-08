@@ -1,3 +1,4 @@
+/* src/s2-homeworks/hw01/message/Message.module.css */
 .container {
     max-width: 600px;
     margin: 0 auto;
@@ -36,7 +37,6 @@
     word-wrap: break-word;
 }
 
-/* Альтернативное сообщение (для другого отправителя) */
 .messageAlt .messageHeader {
     color: #128c7e;
 }
