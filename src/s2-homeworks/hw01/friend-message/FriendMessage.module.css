@@ -1,49 +1,190 @@
-.friendMessage {
+/* Container */
+.container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 15px;
-    border-radius: 12px;
-    background: #f0f2f5;
-    max-width: 300px;
-    width: 100%;
+    height: 100vh;
+    background-color: #ffffff;
 }
 
-.friendImageAndText {
+/* Header */
+.header {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 10px;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.friendImageAndText img {
+.menuButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menuIcon {
+    width: 24px;
+    height: 24px;
+    color: #374151;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+/* Hometask Section */
+.hometaskSection {
+    padding: 20px;
+    background-color: #f9fafb;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.hometaskTitle {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+/* Chat Messages */
+.messagesContainer {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background-color: #ffffff;
+}
+
+.messageWrapper {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    max-width: 70%;
+}
+
+.messageWrapper.incoming {
+    align-self: flex-start;
+}
+
+.messageWrapper.outgoing {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+
+.avatar {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     object-fit: cover;
 }
 
-.friendText {
+.messageContent {
     display: flex;
     flex-direction: column;
     gap: 4px;
 }
 
-.friendName {
+.userName {
+    font-size: 14px;
     font-weight: 600;
-    color: #2d3748;
-    margin-bottom: 4px;
+    color: #1f2937;
+    padding: 0 4px;
 }
 
-.friendMessageText {
-    color: #4b5563;
+.messageBubble {
+    padding: 12px 16px;
+    border-radius: 18px;
     font-size: 14px;
-    line-height: 1.4;
+    line-height: 1.5;
     word-wrap: break-word;
 }
 
-.friendTime {
-    color: #777;
-    font-size: 12px;
+.incoming .messageBubble {
+    background-color: #f3f4f6;
+    color: #1f2937;
+    border-bottom-left-radius: 4px;
+}
+
+.outgoing .messageBubble {
+    background-color: #2563eb;
+    color: #ffffff;
+    border-bottom-right-radius: 4px;
+}
+
+.messageTime {
+    font-size: 11px;
+    color: #9ca3af;
+    padding: 0 4px;
     text-align: right;
+}
+
+/* Input Area */
+.inputArea {
+    display: flex;
+    gap: 12px;
+    padding: 16px 20px;
+    background-color: #ffffff;
+    border-top: 1px solid #e5e7eb;
+}
+
+.inputField {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 24px;
+    font-size: 14px;
+    outline: none;
+    background-color: #f9fafb;
+    transition: border-color 0.2s;
+}
+
+.inputField:focus {
+    border-color: #2563eb;
+    background-color: #ffffff;
+}
+
+.sendButton {
+    padding: 12px 24px;
+    background-color: #2563eb;
+    color: #ffffff;
+    border: none;
+    border-radius: 24px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.sendButton:hover {
+    background-color: #1d4ed8;
+}
+
+.sendButton:active {
+    background-color: #1e40af;
+}
+
+/* Scrollbar */
+.messagesContainer::-webkit-scrollbar {
+    width: 6px;
+}
+
+.messagesContainer::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.messagesContainer::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 3px;
+}
+
+.messagesContainer::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
 }
