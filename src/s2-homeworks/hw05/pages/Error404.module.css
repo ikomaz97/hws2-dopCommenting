@@ -1,6 +1,7 @@
 .error404 {
     width: 451px;
     height: 100%;
+    z-index: 99999;
 }
 
 .wrapper {
