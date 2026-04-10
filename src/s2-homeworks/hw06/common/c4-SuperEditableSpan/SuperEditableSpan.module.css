@@ -1,7 +1,15 @@
 .spanBlock {
+    display: flex;
+    justify-content: space-between;
+    max-width: 120px;
 }
 
 .span {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: #0080FF;
+
 }
 
 .input {
