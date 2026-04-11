@@ -1,19 +1,7 @@
 import React from 'react'
 
-export const pureChange = (
-    sort: string,
-    down: string,
-    up: string
-) => {
-    switch (sort) {
-        case down:
-            return up
-        case up:
-            return ''
-        default:
-            return down
-    }
-}
+import styles from './SuperSort.module.css'
+import {pureChange} from "../helpers/sortHelpers";
 
 type Props = {
     id?: string
@@ -46,9 +34,9 @@ export const SuperSort: React.FC<Props> = ({
         <span
             id={id}
             onClick={handleClick}
-            style={{ cursor: 'pointer', marginLeft: 6 }}
+            className={styles.sort}
         >
-            {icon}
+            {value.charAt(0).toUpperCase() + value.slice(1)} {icon}
         </span>
     )
 }
