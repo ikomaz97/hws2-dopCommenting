@@ -23,25 +23,20 @@ export type UserType = {
     name: string // need to fix any
 }
 
-export const pureAddUserCallback = (name: string, setUsers: (users: UserType[]) => void, users: UserType[]) => {
-    const newUser: UserType = {
+export const pureAddUserCallback = (name: string, setUsers: (users: UserType[]) => void, users: UserType[]) => { // need to fix any
+    const user: UserType = {
         _id: v1(),
-        name: name,
-    };
-    setUsers([...users, newUser]);
-};
-    //засетайЮзеров([...старые users, и наш новый user])
+        name: name
+    }
+    setUsers([...users, user])
+}
 
-
-export const HW3 = () => {
+const HW3 = () => {
     const [users, setUsers] = useState<UserType[]>([]) // need to fix any
 
     const addUserCallback = (name: string) => { // need to fix any
         pureAddUserCallback(name, setUsers, users)
     }
-    const totalUsers = users.length;
-    const lastUserName = users[users.length - 1]?.name;
-
 
     return (
         <div id={'hw3'}>
@@ -55,6 +50,7 @@ export const HW3 = () => {
                 />
             </div>
         </div>
-    );
-};
+    )
+}
+
 export default HW3
