@@ -1,9 +1,15 @@
-import React, { useState } from 'react'
-import { homeWorkReducer } from './bll/homeWorkReducer'
+import React, {useState} from 'react'
+import {homeWorkReducer} from './bll/homeWorkReducer'
 import s from './HW8.module.css'
 import s2 from '../../s1-main/App.module.css'
 import SuperButton from '../hw04/common/c2-SuperButton/SuperButton'
 import User from './User'
+
+/*
+* 1 - дописать типы и логику (сортировка по имени, фильтрация по совершеннолетию) homeWorkReducer, проверить тестом
+* 2 - дописать компоненту User
+* 3 - сделать стили в соответствии с дизайном
+* */
 
 export type UserType = {
     _id: number
@@ -12,6 +18,7 @@ export type UserType = {
 }
 
 const initialPeople: UserType[] = [
+    // студенты могут поменять имя/возраст/количество объектов, _id должны быть целочисленные
     {_id: 0, name: 'Кот', age: 3},
     {_id: 1, name: 'Александр', age: 66},
     {_id: 2, name: 'Коля', age: 16},
@@ -29,20 +36,20 @@ const HW8 = () => {
     const sortUp = () => {
         setPeople(
             homeWorkReducer(initialPeople, {type: 'sort', payload: 'up'})
-        ) // Сортировка по имени в алфавитном порядке
+        ) // в алфавитном порядке a.name > b.name
         setCurrentSort('up')
     }
 
     const sortDown = () => {
         setPeople(
             homeWorkReducer(initialPeople, {type: 'sort', payload: 'down'})
-        ) // Сортировка по имени в обратном порядке
+        ) // в обратном порядке a.name < b.name}
         setCurrentSort('down')
     }
     const check18 = () => {
         setPeople(
-            homeWorkReducer(initialPeople, {type: 'check', payload: 18})
-        ) // Совершеннолетние
+            homeWorkReducer(people, {type: 'check', payload: 18})
+        ) // совершеннолетние
         setCurrentSort('18')
     }
 
