@@ -1,23 +1,62 @@
 .item {
+    border-bottom: 1px solid #E5E5E5;
+    padding-top: 16px;
+    padding-bottom: 16px;
 }
 
 .item:last-of-type {
+    border-bottom: none;
 }
 
 .users {
+    border-spacing: 0;
+    min-width: 606px;
+    margin-top: 20px;
 }
 
-.buttonsContainer {
+.users tbody tr {
+    border-bottom: 1px solid #E5E5E5;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+.buttonsContainer button:not(:last-child) {
+    margin-right: 20px;
 }
 
 .container {
+    max-width: 606px;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
 }
 
 .thead {
+    background-color: #E5E5E5;
 }
 
+.thead tr td {
+    font-family: "Roboto", sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+
 .nameCol {
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    padding-left: 17px;
+    padding-top: 16px;
+    padding-bottom: 16px;
 }
 
 .ageCol {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
 }
+
+
+
+
