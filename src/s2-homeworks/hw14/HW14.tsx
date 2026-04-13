@@ -1,77 +1,91 @@
-import React, { useState, useCallback } from 'react'
-import { SuperDebouncedInput } from './common/SuperDebouncedInput'
+import React, {useEffect, useState} from 'react'
+import s2 from '../../s1-main/App.module.css'
 import s from './HW14.module.css'
+import axios from 'axios'
+import SuperDebouncedInput from './common/c8-SuperDebouncedInput/SuperDebouncedInput'
+import {useSearchParams} from 'react-router-dom'
 
-// Полная база данных технологий
-const techs = [
-    { id: 1, value: 'html', tech: 'html' },
-    { id: 2, value: 'css', tech: 'css' },
-    { id: 3, value: 'scss', tech: 'scss' },
-    { id: 4, value: 'javascript', tech: 'javascript' },
-    { id: 5, value: 'typescript', tech: 'typescript' },
-    { id: 6, value: 'react', tech: 'react' },
-    { id: 7, value: 'redux', tech: 'redux' },
-    { id: 8, value: 'jest', tech: 'jest' }, // Добавляем Jest
-]
+/*
+* 1 - дописать функцию onChangeTextCallback в SuperDebouncedInput
+* 2 - дописать функцию sendQuery в HW14
+* 3 - дописать функцию onChangeText в HW14
+* 4 - сделать стили в соответствии с дизайном
+* 5 - добавить HW14 в HW5/pages/JuniorPlus
+* */
 
-export const HW14 = () => {
-    const [filteredTechs, setFilteredTechs] = useState(techs)
-    const [isLoading, setIsLoading] = useState(false)
+const getTechs = (find: string) => {
+    return axios
+        .get<{ techs: string[] }>(
+            'https://samurai.it-incubator.io/api/3.0/homework/test2',
+            {params: {find}}
+        )
+        .catch((e) => {
+            alert(e.response?.data?.errorText || e.message)
+        })
+}
 
-    // Пункт 2 - функция sendQuery
-    const sendQuery = async (value: string) => {
-        setIsLoading(true)
+const HW14 = () => {
+    const [find, setFind] = useState('')
+    const [isLoading, setLoading] = useState(false)
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [techs, setTechs] = useState<string[]>([])
 
-        // Имитация задержки запроса
-        await new Promise(resolve => setTimeout(resolve, 1000))
-
-        if (!value.trim()) {
-            setFilteredTechs(techs)
-        } else {
-            const filtered = techs.filter(tech =>
-                tech.value.toLowerCase().includes(value.toLowerCase())
-            )
-            setFilteredTechs(filtered)
-        }
-
-        setIsLoading(false)
+    const sendQuery = (value: string) => {
+        setLoading(true)
+        getTechs(value)
+            .then((res) => {
+                // делает студент
+                if (res?.data) {
+                    setTechs(res.data.techs)
+                }
+                // сохранить пришедшие данные
+                //
+            })
+            .finally(() => setLoading(false))
     }
 
-    // Пункт 3 - функция onChangeText
-    const onChangeText = useCallback((value: string) => {
-        sendQuery(value)
+    const onChangeText = (value: string) => {
+        setFind(value)
+        // делает студент
+        setSearchParams({find: value})
+        // добавить/заменить значение в квери урла
+        // setSearchParams(
+
+        //
+    }
+
+    useEffect(() => {
+        const params = Object.fromEntries(searchParams)
+        sendQuery(params.find || '')
+        setFind(params.find || '')
     }, [])
 
-    return (
-        <div className={s.container}>
-            <h2 className={s.title} id="hw14-title">
-                Homework 14
-            </h2>
+    const mappedTechs = techs.map(t => (
+        <div key={t} id={'hw14-tech-' + t} className={s.tech}>
+            {t}
+        </div>
+    ))
 
-            <div className={s.content}>
+    return (
+        <div id={'hw14'}>
+            <div className={s2.hwTitle}>Homework #14</div>
+
+            <div className={s2.hw}>
                 <SuperDebouncedInput
+                    id={'hw14-super-debounced-input'}
+                    value={find}
                     onChangeText={onChangeText}
-                    placeholder="введите технологию..."
-                    delay={1000}
+                    onDebouncedChange={sendQuery}
                 />
 
-                {isLoading && (
-                    <div id="hw14-loading" className={s.loading}>
-                        loading...
-                    </div>
-                )}
+                <div id={'hw14-loading'} className={s.loading}>
+                    {isLoading ? '...ищем' : <br/>}
+                </div>
 
-                {/* Отображаем каждую технологию в отдельном div с уникальным ID */}
-                {filteredTechs.map(tech => (
-                    <div
-                        key={tech.id}
-                        id={`hw14-tech-${tech.value}`}
-                        className={s.techItem}
-                    >
-                        {tech.tech}
-                    </div>
-                ))}
+                {mappedTechs}
             </div>
         </div>
     )
 }
+
+export default HW14
