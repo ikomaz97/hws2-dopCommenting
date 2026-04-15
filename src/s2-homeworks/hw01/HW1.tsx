@@ -20,27 +20,32 @@ export type MessageType = {
     message: {text: string, time: string}
 }
 
+// два разных пользователя для чередования
+export const user1 = {
+    avatar: avatar,
+    name: 'Some Name',
+}
+
+export const user2 = {
+    avatar: avatar,
+    name: 'Friend Name',
+}
+
 // структуру объекта не менять
 export const message0: MessageType = {
     id: 0,
-    user: {
-        avatar: avatar, // можно менять
-        name: 'Some Name',  // можно менять
-    },
+    user: user1,
     message: {
-        text: 'some textsome textsome textsome textsome textsome textsome text', // можно менять
-        time: '22:00', // можно менять
+        text: 'some textsome textsome textsome textsome textsome textsome text',
+        time: '22:00',
     },
 }
 export const friendMessage0: MessageType = {
     id: 100,
-    user: {
-        avatar: avatar, // можно менять
-        name: 'Friend Name', // можно менять
-    },
+    user: user2,
     message: {
-        text: 'зеркальное сообщение для тренировки css', // можно менять
-        time: '22:05', // можно менять
+        text: 'зеркальное сообщение для тренировки css',
+        time: '22:05',
     },
 }
 
