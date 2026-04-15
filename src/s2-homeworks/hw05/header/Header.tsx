@@ -1,15 +1,14 @@
-import React, {FC} from 'react'
+import React, { FC } from 'react'
 import burgerIcon from './burger.svg'
 import s from './Header.module.css'
-import {useLocation} from 'react-router-dom'
-import {PATH} from '../Pages'
+import { useLocation } from 'react-router-dom'
+import { PATH } from '../Pages'
 
 type PropsType = {
     handleOpen: () => void
 }
 
-export const Header: FC<PropsType> = ({handleOpen}) => {
-    // hw5-menu изначально отсутствует, при нажатии на бургер - появляется, при повторном нажатии исчезает
+export const Header: FC<PropsType> = ({ handleOpen }) => {
     const location = useLocation()
     const currentPath = location.pathname
 
@@ -21,18 +20,28 @@ export const Header: FC<PropsType> = ({handleOpen}) => {
                 : currentPath === PATH.JUNIOR_PLUS
                     ? 'Junior Plus'
                     : 'Error'
+
     return (
         <>
-            <div id={'hw5-header'} className={s.header}>
-                <img
-                    src={burgerIcon}
-                    id={'hw5-burger-menu'}
-                    className={s.burgerMenuIcon}
-                    onClick={handleOpen}
-                    alt={'open menu'}
-                />
-                <h1>{pageName}</h1>
-            </div>
+            <header id="hw5-header" className={s.header} role="banner">
+                <div className={s.headerContent}>
+                    <button
+                        id="hw5-burger-menu"
+                        className={s.burgerMenuButton}
+                        onClick={handleOpen}
+                        aria-label="Открыть меню"
+                        aria-expanded={false}
+                        aria-controls="hw5-menu"
+                    >
+                        <img
+                            src={burgerIcon}
+                            className={s.burgerMenuIcon}
+                            alt="Меню"
+                        />
+                    </button>
+                    <h1>{pageName}</h1>
+                </div>
+            </header>
         </>
     )
 }
