@@ -1,15 +1,90 @@
-.burgerMenuIcon {
-    display: block;
-}
-
 .header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 24px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark-mode .header {
+    background-color: #1f2937;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.headerContent {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 1280px;
+}
+
+.burgerMenuButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.burgerMenuButton:hover {
+    background-color: #f3f4f6;
+}
+
+body.dark-mode .burgerMenuButton:hover {
+    background-color: #374151;
+}
+
+.burgerMenuIcon {
+    width: 24px;
+    height: 24px;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.burgerMenuButton:focus-visible {
+    outline: 2px solid #6366f1;
+    outline-offset: 2px;
 }
 
 .header h1 {
-    font-family: "Montserrat", sans-serif;
-    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
     font-size: 24px;
-    line-height: 29.26px;
+    line-height: 1.4;
+    color: #1f2937;
+    margin: 0;
+}
+
+body.dark-mode .header h1 {
+    color: #e0e0e0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .header {
+        padding: 12px 16px;
+    }
+    
+    .header h1 {
+        font-size: 20px;
+    }
+    
+    .burgerMenuButton {
+        padding: 6px;
+    }
+    
+    .burgerMenuIcon {
+        width: 20px;
+        height: 20px;
+    }
 }
