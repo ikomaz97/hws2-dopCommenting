@@ -1,7 +1,7 @@
-import React, {FC} from 'react'
-import {NavLink} from 'react-router-dom'
+import React, { FC } from 'react'
+import { NavLink } from 'react-router-dom'
 import s from './Sidebar.module.css'
-import {PATH} from '../Pages'
+import { PATH } from '../Pages'
 import closeIcon from './closeOutline.svg'
 
 type PropsType = {
@@ -9,48 +9,57 @@ type PropsType = {
     handleClose: () => void
 }
 
-export const Sidebar: FC<PropsType> = ({open, handleClose}) => {
-    const sidebarClass = s.sidebar
-        + (open ? ' ' + s.open : '')
+export const Sidebar: FC<PropsType> = ({ open, handleClose }) => {
+    const sidebarClass = s.sidebar + (open ? ' ' + s.open : '')
+
+    const navItems = [
+        { path: PATH.PRE_JUNIOR, label: 'Pre-junior', icon: '🏠' },
+        { path: PATH.JUNIOR, label: 'Junior', icon: '🚀' },
+        { path: PATH.JUNIOR_PLUS, label: 'Junior Plus', icon: '⭐' },
+    ]
+
     return (
         <>
-            {/*затемнение справа от открытого меню*/}
-            {open && <div className={s.background} onClick={handleClose}/>}
+            {/* Затемнение справа от открытого меню */}
+            {open && (
+                <div
+                    className={s.background}
+                    onClick={handleClose}
+                    aria-hidden="true"
+                />
+            )}
 
-            <aside className={sidebarClass}>
-                <button className={s.close} onClick={handleClose}>
-                    <img
-                        src={closeIcon}
-                        alt="close sidebar"
-                        id={'hw5-menu-close'}
-                    />
+            <aside
+                className={sidebarClass}
+                id="hw5-menu"
+                role="dialog"
+                aria-label="Основное меню"
+                aria-modal="true"
+            >
+                <button
+                    className={s.close}
+                    onClick={handleClose}
+                    aria-label="Закрыть меню"
+                >
+                    <img src={closeIcon} alt="Закрыть" />
                 </button>
 
-                <nav id={'hw5-menu'} className={s.nav}>
-                    <NavLink
-                        id={'hw5-pre-junior-link'}
-                        to={PATH.PRE_JUNIOR}
-                        onClick={handleClose}
-                        className={({ isActive }) => (isActive ? `${s.a} ${s.active}` : s.a)}
-                    >
-                        Pre-junior
-                    </NavLink>
-                    <NavLink
-                        id={'hw5-junior-link'}
-                        to={PATH.JUNIOR}
-                        onClick={handleClose}
-                        className={({ isActive }) => (isActive ? `${s.a} ${s.active}` : s.a)}
-                    >
-                        Junior
-                    </NavLink>
-                    <NavLink
-                        id={'hw5-junior-plus-link'}
-                        to={PATH.JUNIOR_PLUS}
-                        onClick={handleClose}
-                        className={({ isActive }) => (isActive ? `${s.a} ${s.active}` : s.a)}
-                    >
-                        Junior Plus
-                    </NavLink>
+                <nav className={s.nav}>
+                    {navItems.map((item) => (
+                        <NavLink
+                            key={item.path}
+                            id={`hw5-${item.path.replace('/', '-').replace('-', '')}-link`}
+                            to={item.path}
+                            onClick={handleClose}
+                            className={({ isActive }) =>
+                                isActive ? `${s.a} ${s.active}` : s.a
+                            }
+                            aria-current="page"
+                        >
+                            <span className={s.icon}>{item.icon}</span>
+                            {item.label}
+                        </NavLink>
+                    ))}
                 </nav>
             </aside>
         </>
