@@ -1,0 +1,53 @@
+.mainContent {
+    min-height: calc(100vh - var(--header_height));
+    background-color: #f9fafb;
+    transition: background-color 0.3s ease;
+}
+
+body.dark-mode .mainContent {
+    background-color: #111827;
+}
+
+.darkModeToggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #6366f1;
+    color: white;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.darkModeToggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+.darkModeToggle svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .darkModeToggle {
+        bottom: 16px;
+        right: 16px;
+        width: 44px;
+        height: 44px;
+    }
+    
+    .darkModeToggle svg {
+        width: 20px;
+        height: 20px;
+    }
+}
