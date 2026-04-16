@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react'
-import { message0 } from '../HW1'
+import {message0, user1, user2} from '../HW1'
 import s from './MessageSender.module.css'
 
 // компонента, которая тестирует вашу компоненту (не изменять, any не трогать)
@@ -8,6 +8,7 @@ const MessageSender = (props: any) => {
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
     const [messages, setMessages] = useState<any[]>([])
     const [text, setText] = useState<any>('')
+    const [userIndex, setUserIndex] = useState<number>(0)
 
     const onChange = (e: any) => {
         setText(e.currentTarget.value)
@@ -21,11 +22,15 @@ const MessageSender = (props: any) => {
     }, [text])
 
     const addMessage = () => {
+        // чередование пользователей
+        const currentUser = userIndex === 0 ? user1 : user2
+        setUserIndex(userIndex === 0 ? 1 : 0)
+
         setMessages([
             ...messages,
             {
                 id: messages.length ? messages.length + 1 : 1,
-                user: message0.user,
+                user: currentUser,
                 message: {
                     text,
                     time: new Date().toTimeString().slice(0, 5),
