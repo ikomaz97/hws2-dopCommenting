@@ -1,23 +1,26 @@
 {
   "files": {
-    "main.css": "/hws2-dopCommenting/static/css/main.40125dd7.css",
-    "main.js": "/hws2-dopCommenting/static/js/main.b99bb35a.js",
+    "main.css": "/hws2-dopCommenting/static/css/main.227262ec.css",
+    "main.js": "/hws2-dopCommenting/static/js/main.94a28fce.js",
+    "static/js/787.66cb4309.chunk.js": "/hws2-dopCommenting/static/js/787.66cb4309.chunk.js",
     "static/media/avatar.png": "/hws2-dopCommenting/static/media/avatar.d947cb9d0d13765666b6.png",
-    "static/media/200.svg": "/hws2-dopCommenting/static/media/200.2b4de1542921864a6ecb8c3301ea4670.svg",
+    "static/media/200.svg": "/hws2-dopCommenting/static/media/200.96248f7df0dde10e0a82ac30418f50bc.svg",
     "static/media/error.svg": "/hws2-dopCommenting/static/media/error.9a99652a785b87f2f448e23e5da3045d.svg",
     "static/media/500.svg": "/hws2-dopCommenting/static/media/500.65355d1617c6a93fc93572680052f0b7.svg",
-    "static/media/400.svg": "/hws2-dopCommenting/static/media/400.4e46e304dcfdcae89fcfb902d8863816.svg",
-    "static/media/404.svg": "/hws2-dopCommenting/static/media/404.dae7af4892f2a3abe805a174178919f2.svg",
+    "static/media/400.svg": "/hws2-dopCommenting/static/media/400.8baa1b795048b6fa13ff8d30800aa1b1.svg",
+    "static/media/404.svg": "/hws2-dopCommenting/static/media/404.9ec31c0ba8d95b0480272e46af98c955.svg",
+    "static/media/loader.svg": "/hws2-dopCommenting/static/media/loader.8c55d4cb841478de97e6.svg",
     "static/media/closeOutline.svg": "/hws2-dopCommenting/static/media/closeOutline.91a6693133923612a0702421ab3e9923.svg",
     "static/media/editIcon.svg": "/hws2-dopCommenting/static/media/editIcon.11c8e1c42f9a4eae81897d68e091eb42.svg",
     "static/media/checked.svg": "/hws2-dopCommenting/static/media/checked.0b6a1bcf5d417ff0a947.svg",
     "static/media/burger.svg": "/hws2-dopCommenting/static/media/burger.e4e6b98e4ee0b2dfcd76d02a9eed2e34.svg",
     "index.html": "/hws2-dopCommenting/index.html",
-    "main.40125dd7.css.map": "/hws2-dopCommenting/static/css/main.40125dd7.css.map",
-    "main.b99bb35a.js.map": "/hws2-dopCommenting/static/js/main.b99bb35a.js.map"
+    "main.227262ec.css.map": "/hws2-dopCommenting/static/css/main.227262ec.css.map",
+    "main.94a28fce.js.map": "/hws2-dopCommenting/static/js/main.94a28fce.js.map",
+    "787.66cb4309.chunk.js.map": "/hws2-dopCommenting/static/js/787.66cb4309.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.40125dd7.css",
-    "static/js/main.b99bb35a.js"
+    "static/css/main.227262ec.css",
+    "static/js/main.94a28fce.js"
   ]
 }
